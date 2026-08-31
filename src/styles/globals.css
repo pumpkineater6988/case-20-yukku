@@ -1,0 +1,419 @@
+/* ============================================================
+   CASE #CASE-20-YUKKU — Global Design System
+   Dark FBI Noir × Baby Pink Romance
+   ============================================================ */
+
+:root {
+  /* Color Palette */
+  --pink-primary:   #D81B60;
+  --pink-light:     #F48FB1;
+  --pink-pale:      #FCE4EC;
+  --pink-deep:      #880E4F;
+  --gold:           #FFD700;
+  --gold-dim:       #B8860B;
+
+  /* Backgrounds */
+  --bg-void:        #050510;
+  --bg-dark:        #0D0D1A;
+  --bg-surface:     #12122A;
+  --bg-card:        #1A1A35;
+  --bg-glass:       rgba(26, 26, 53, 0.7);
+
+  /* Text */
+  --text-primary:   #FFFFFF;
+  --text-secondary: #C9B8CC;
+  --text-muted:     #7B6F87;
+  --text-pink:      #F48FB1;
+  --text-gold:      #FFD700;
+
+  /* Glows */
+  --glow-pink:      0 0 20px rgba(216, 27, 96, 0.5), 0 0 40px rgba(216, 27, 96, 0.2);
+  --glow-pink-sm:   0 0 10px rgba(216, 27, 96, 0.4);
+  --glow-gold:      0 0 15px rgba(255, 215, 0, 0.4);
+  --glow-white:     0 0 10px rgba(255, 255, 255, 0.2);
+
+  /* Borders */
+  --border-pink:    1px solid rgba(216, 27, 96, 0.4);
+  --border-glass:   1px solid rgba(255, 255, 255, 0.08);
+  --border-gold:    1px solid rgba(255, 215, 0, 0.3);
+
+  /* Fonts */
+  --font-heading:   'Playfair Display', Georgia, serif;
+  --font-body:      'Inter', sans-serif;
+  --font-mono:      'Share Tech Mono', monospace;
+  --font-letter:    'Dancing Script', 'Lucida Calligraphy', cursive;
+  --font-telugu:    'Noto Sans Telugu', sans-serif;
+
+  /* Spacing */
+  --gap-xs: 4px;
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 40px;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Typography ---- */
+h1, h2, h3 { font-family: var(--font-heading); }
+
+/* ---- Utility Classes ---- */
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: var(--border-glass);
+}
+
+.glow-pink { box-shadow: var(--glow-pink); }
+.glow-gold  { box-shadow: var(--glow-gold); }
+
+.text-pink  { color: var(--pink-light); }
+.text-gold  { color: var(--gold); }
+.text-mono  { font-family: var(--font-mono); }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb {
+  background: var(--pink-primary);
+  border-radius: 3px;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm);
+  padding: 12px 28px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-smooth);
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink-primary), #E91E8C);
+  color: white;
+  box-shadow: var(--glow-pink-sm);
+}
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--glow-pink);
+}
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--pink-light);
+  border: var(--border-pink);
+}
+.btn-ghost:hover {
+  background: rgba(216, 27, 96, 0.1);
+  box-shadow: var(--glow-pink-sm);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), #FFA500);
+  color: #1a1a00;
+  font-weight: 700;
+  box-shadow: var(--glow-gold);
+}
+.btn-gold:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+}
+
+/* ============================================================
+   CARDS / PANELS
+   ============================================================ */
+.card {
+  background: var(--bg-card);
+  border: var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: var(--gap-lg);
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(216,27,96,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   BADGE
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+.badge-red {
+  background: rgba(216, 27, 96, 0.2);
+  color: var(--pink-primary);
+  border: 1px solid rgba(216, 27, 96, 0.4);
+}
+.badge-gold {
+  background: rgba(255, 215, 0, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+.badge-green {
+  background: rgba(76, 175, 80, 0.15);
+  color: #81C784;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+
+/* Pulsing glow */
+@keyframes pulsGlow {
+  0%, 100% { box-shadow: var(--glow-pink-sm); }
+  50%       { box-shadow: var(--glow-pink); }
+}
+
+/* Scanning line */
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Float up */
+@keyframes floatUp {
+  0%   { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+}
+
+/* Heartbeat */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.15); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.1); }
+  70%       { transform: scale(1); }
+}
+
+/* Shimmer */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Candle flicker */
+@keyframes flicker {
+  0%, 100% { transform: scaleX(1) scaleY(1) rotate(-1deg); opacity: 1; }
+  25%       { transform: scaleX(0.95) scaleY(1.05) rotate(2deg); opacity: 0.95; }
+  50%       { transform: scaleX(1.05) scaleY(0.95) rotate(-2deg); opacity: 0.9; }
+  75%       { transform: scaleX(0.9) scaleY(1.1) rotate(1deg); opacity: 1; }
+}
+
+@keyframes flickerInner {
+  0%, 100% { transform: scaleX(0.8) scaleY(0.85) rotate(1deg); }
+  33%       { transform: scaleX(1) scaleY(0.9) rotate(-2deg); }
+  66%       { transform: scaleX(0.75) scaleY(1) rotate(2deg); }
+}
+
+/* Smoke rise */
+@keyframes smokeRise {
+  0%   { transform: translateY(0) scaleX(1); opacity: 0.6; }
+  100% { transform: translateY(-60px) scaleX(3); opacity: 0; }
+}
+
+/* Blow out flame */
+@keyframes blowOut {
+  0%   { transform: scaleX(1.5) scaleY(2) rotate(40deg); opacity: 1; }
+  60%  { transform: scaleX(0.3) scaleY(0.5) rotate(-20deg); opacity: 0.5; }
+  100% { transform: scaleX(0) scaleY(0); opacity: 0; }
+}
+
+/* Fade in up */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scale in */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Spin */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Shake */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-6px); }
+  30%, 70%  { transform: translateX(6px); }
+}
+
+/* Particle float */
+@keyframes particleFloat {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.8; }
+  100% { transform: translateY(-100px) scale(1) rotate(720deg); opacity: 0; }
+}
+
+/* Polaroid tilt */
+@keyframes tiltIn {
+  from { transform: rotate(-8deg) scale(0.8); opacity: 0; }
+  to   { transform: rotate(var(--tilt)) scale(1); opacity: 1; }
+}
+
+/* Dash scan */
+@keyframes scanPulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
+
+/* Green dot pulse */
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.6; }
+}
+
+/* Progress fill */
+@keyframes fillProgress {
+  from { width: 0%; }
+}
+
+/* ============================================================
+   POLAROID CARD
+   ============================================================ */
+.polaroid {
+  background: white;
+  padding: 12px 12px 40px;
+  border-radius: 4px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  position: relative;
+  transition: transform 0.3s var(--ease-spring);
+}
+.polaroid:hover { transform: scale(1.03) rotate(0deg) !important; }
+.polaroid img,
+.polaroid .polaroid-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+.polaroid .polaroid-caption {
+  text-align: center;
+  margin-top: 8px;
+  font-family: var(--font-letter);
+  font-size: 0.85rem;
+  color: #333;
+  line-height: 1.3;
+}
+
+/* Tape effect */
+.tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 22px;
+  background: rgba(255, 235, 170, 0.75);
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* ============================================================
+   MISC UTILS
+   ============================================================ */
+.animate-fade-in-up  { animation: fadeInUp 0.6s var(--ease-smooth) both; }
+.animate-scale-in    { animation: scaleIn  0.4s var(--ease-spring) both; }
+.animate-heartbeat   { animation: heartbeat 1.5s ease-in-out infinite; }
+
+.no-select { user-select: none; -webkit-user-select: none; }
+
+/* ============================================================
+   RESPONSIVE FOUNDATION
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--gap-md);
+}
+
+/* Mobile first */
+@media (max-width: 600px) {
+  :root {
+    --gap-lg: 16px;
+    --gap-xl: 24px;
+  }
+}

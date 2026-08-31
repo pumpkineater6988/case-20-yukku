@@ -1,0 +1,116 @@
+.intro {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at center, rgba(216,27,96,0.08) 0%, transparent 70%),
+    var(--bg-void);
+  overflow: hidden;
+  padding: var(--gap-md);
+}
+
+.intro__scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(216,27,96,0.6), transparent);
+  animation: scanLine 4s linear infinite;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.intro__terminal {
+  width: 100%;
+  max-width: 660px;
+  background: rgba(5, 5, 16, 0.95);
+  border: 1px solid rgba(216, 27, 96, 0.3);
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 60px rgba(216,27,96,0.15), 0 20px 60px rgba(0,0,0,0.6);
+  overflow: hidden;
+}
+
+/* Terminal title bar */
+.intro__terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.dot--red    { background: #FF5F57; }
+.dot--yellow { background: #FEBC2E; }
+.dot--green  { background: #28C840; }
+
+.intro__terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 8px;
+  letter-spacing: 0.05em;
+}
+
+/* Output area */
+.intro__output {
+  padding: 28px 32px 20px;
+  min-height: 320px;
+}
+
+.intro__line {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: #D4F0D4;
+  white-space: pre;
+}
+
+.intro__line:first-child {
+  color: var(--pink-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-shadow: var(--glow-pink-sm);
+  margin-bottom: 4px;
+}
+
+.intro__cursor {
+  display: inline-block;
+  color: var(--pink-primary);
+  animation: blink 0.8s step-end infinite;
+  margin-left: 2px;
+}
+
+.intro__cta {
+  margin: 8px 32px 28px;
+  font-size: 1rem;
+  padding: 14px 36px;
+  animation-delay: 0.1s;
+}
+
+/* Corner decorations */
+.intro__corner {
+  position: absolute;
+  font-size: 1.5rem;
+  color: rgba(216,27,96,0.2);
+  pointer-events: none;
+}
+.intro__corner--tl { top: 16px;    left: 16px; }
+.intro__corner--tr { top: 16px;    right: 16px; }
+.intro__corner--bl { bottom: 16px; left: 16px; }
+.intro__corner--br { bottom: 16px; right: 16px; }
+
+@media (max-width: 600px) {
+  .intro__output { padding: 20px 20px 12px; }
+  .intro__line   { font-size: 0.72rem; }
+  .intro__cta    { margin: 8px 20px 20px; }
+}

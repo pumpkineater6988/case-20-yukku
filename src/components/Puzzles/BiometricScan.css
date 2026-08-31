@@ -1,0 +1,382 @@
+/* Shared puzzle layout */
+.puzzle-header {
+  text-align: center;
+  margin-bottom: var(--gap-xl);
+  padding-top: var(--gap-xl);
+}
+.puzzle-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  background: linear-gradient(135deg, #fff, var(--pink-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 12px 0 8px;
+}
+.puzzle-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.highlight { color: var(--pink-light); font-style: normal; font-weight: 600; }
+
+/* Shared evidence card */
+.evidence-card {
+  background: rgba(255,255,255,0.04);
+  border: var(--border-pink);
+  border-radius: var(--radius-md);
+  padding: var(--gap-md) var(--gap-lg);
+  width: 100%;
+  max-width: 420px;
+}
+.evidence-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gap-md);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.evidence-card__sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.evidence-card__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.evidence-card__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.8rem;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.evidence-card__row:last-child { border-bottom: none; padding-bottom: 0; }
+.evidence-card__label { color: var(--text-muted); }
+.evidence-card__value { color: var(--pink-light); font-weight: 600; text-align: right; }
+
+/* ---- BiometricScan ---- */
+.bscan {
+  min-height: calc(100vh - 60px);
+  padding-bottom: 60px;
+}
+
+.bscan__panel {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: var(--gap-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-lg);
+  position: relative;
+  overflow: hidden;
+}
+.bscan__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(216,27,96,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.bscan__panel--success {
+  border-color: rgba(216,27,96,0.5);
+  box-shadow: var(--glow-pink);
+}
+
+/* Face scan UI */
+.bscan__face-wrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bscan__face-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(216,27,96,0.3);
+  animation: spin 8s linear infinite;
+}
+.bscan__face-ring--outer  { width: 180px; height: 180px; }
+.bscan__face-ring--middle { width: 130px; height: 130px; animation-direction: reverse; animation-duration: 5s; }
+
+.bscan__face {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 2px solid rgba(216,27,96,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Live camera video sits on top, clips to circle */
+.bscan__camera-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 2;
+  transform: scaleX(-1); /* mirror like a selfie */
+}
+/* fallback emoji — hidden when video is streaming */
+.bscan__camera-video:not([srcObject]) + .bscan__face-icon,
+.bscan__face:has(.bscan__camera-video[srcObject]) .bscan__face-icon {
+  display: none;
+}
+
+.bscan__face-icon {
+  font-size: 3rem;
+  filter: grayscale(0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.bscan__scan-beam {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(216,27,96,0.8), transparent);
+  box-shadow: 0 0 8px rgba(216,27,96,0.6);
+  transition: top 0.08s linear;
+}
+
+/* Face corners */
+.bscan__face-corners {
+  position: absolute;
+  inset: 0;
+}
+.fc {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-color: var(--pink-primary);
+  border-style: solid;
+}
+.fc.tl { top:0;    left:0;  border-width: 2px 0 0 2px; }
+.fc.tr { top:0;    right:0; border-width: 2px 2px 0 0; }
+.fc.bl { bottom:0; left:0;  border-width: 0 0 2px 2px; }
+.fc.br { bottom:0; right:0; border-width: 0 2px 2px 0; }
+
+/* Progress */
+.bscan__progress-wrap { width: 100%; }
+.bscan__progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.bscan__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink-primary), var(--pink-light));
+  border-radius: 3px;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 8px rgba(216,27,96,0.5);
+}
+.bscan__progress-text { font-size: 0.72rem; color: var(--pink-light); text-align: center; }
+
+/* Alert box */
+.bscan__alert {
+  width: 100%;
+  background: rgba(76,175,80,0.1);
+  border: 1px solid rgba(76,175,80,0.3);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: #81C784;
+  text-align: center;
+}
+
+.bscan__instruct {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Keyword buttons */
+.bscan__keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-sm);
+  justify-content: center;
+}
+.bscan__keyword-btn {
+  background: rgba(216,27,96,0.1);
+  border: var(--border-pink);
+  color: var(--pink-light);
+  border-radius: var(--radius-full);
+  padding: 8px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+}
+.bscan__keyword-btn:hover {
+  background: rgba(216,27,96,0.25);
+  box-shadow: var(--glow-pink-sm);
+  transform: translateY(-1px);
+}
+
+.bscan__divider {
+  width: 100%;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Input row */
+.bscan__input-wrap {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.bscan__input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: var(--border-pink);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  color: var(--pink-light);
+  font-size: 0.9rem;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+.bscan__input:focus { box-shadow: var(--glow-pink-sm); }
+.bscan__input::placeholder { color: var(--text-muted); }
+
+/* Success */
+.bscan__success-icon { font-size: 3.5rem; }
+.bscan__success-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--pink-light);
+  text-shadow: var(--glow-pink-sm);
+}
+.bscan__success-sub { font-size: 0.85rem; color: var(--text-secondary); text-align: center; }
+
+/* Shake animation */
+.bscan--shake { animation: shake 0.5s ease; }
+
+/* ---- HUD Stats Grid ---- */
+.bscan__hud-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bscan__hud-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(216,27,96,0.07);
+  border: 1px solid rgba(216,27,96,0.15);
+  border-radius: var(--radius-sm);
+  gap: 12px;
+}
+
+.bscan__hud-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.bscan__hud-value {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--pink-light);
+  text-shadow: var(--glow-pink-sm);
+  white-space: nowrap;
+}
+
+/* ---- Quiz ---- */
+.bscan__quiz-question {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: white;
+  text-align: center;
+  line-height: 1.4;
+  padding: 0 8px;
+}
+
+.bscan__quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.bscan__quiz-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
+}
+.bscan__quiz-btn:hover {
+  background: rgba(216,27,96,0.12);
+  border-color: rgba(216,27,96,0.35);
+  box-shadow: var(--glow-pink-sm);
+}
+.bscan__quiz-btn--wrong {
+  border-color: rgba(255, 82, 82, 0.7) !important;
+  background: rgba(255, 82, 82, 0.1) !important;
+  animation: shake 0.5s ease;
+}
+
+.bscan__quiz-letter {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--pink-primary);
+  min-width: 20px;
+}
+
+/* Taunt message */
+.bscan__taunt {
+  font-size: 0.88rem;
+  color: #FF8A80;
+  text-align: center;
+  padding: 10px 16px;
+  background: rgba(255,82,82,0.08);
+  border: 1px solid rgba(255,82,82,0.2);
+  border-radius: var(--radius-sm);
+  width: 100%;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .bscan__panel { padding: var(--gap-lg); }
+}

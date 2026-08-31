@@ -1,0 +1,181 @@
+/* ============================================
+   Photo Gallery Modal — Dynamic Image Sizing
+   ============================================ */
+
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-modal__bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+/* Close button */
+.gallery-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.gallery-modal__close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Stage — the area where the image lives */
+.gallery-modal__stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100vw - 140px);  /* leave room for nav buttons */
+  height: calc(100vh - 120px); /* leave room for counter + padding */
+  max-width: 1200px;
+}
+
+/* Frame — wraps image + caption, sized by the image naturally */
+.gallery-modal__frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+  background: white;
+  padding: 16px 16px 40px;
+  border-radius: 4px;
+  box-shadow:
+    0 12px 50px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(216, 27, 96, 0.25);
+}
+
+/* The image — fills container while keeping its aspect ratio */
+.gallery-modal__img {
+  max-width: 100%;
+  max-height: calc(100vh - 220px); /* Leave room for padding + nav */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 2px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Caption */
+.gallery-modal__caption {
+  font-family: var(--font-letter);
+  font-size: 1.1rem;
+  color: #333;
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Video player — same frame, dark bg */
+.gallery-modal__video {
+  max-width: 100%;
+  max-height: calc(100vh - 220px);
+  width: auto;
+  height: auto;
+  border-radius: 2px;
+  outline: none;
+  background: #000;
+  display: block;
+}
+
+/* When frame contains a video, use dark background */
+.gallery-modal__frame:has(.gallery-modal__video) {
+  background: #111;
+}
+.gallery-modal__frame:has(.gallery-modal__video) .gallery-modal__caption {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Nav buttons — positioned on sides */
+.gallery-modal__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gallery-modal__nav:hover {
+  background: rgba(216, 27, 96, 0.45);
+  border-color: rgba(216, 27, 96, 0.7);
+  box-shadow: 0 0 20px rgba(216, 27, 96, 0.4);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.gallery-modal__nav--left {
+  left: 16px;
+}
+.gallery-modal__nav--right {
+  right: 16px;
+}
+
+/* Counter */
+.gallery-modal__counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 600px) {
+  .gallery-modal__stage {
+    width: calc(100vw - 20px);
+    height: calc(100vh - 100px);
+  }
+
+  .gallery-modal__nav {
+    width: 38px;
+    height: 38px;
+    font-size: 1.4rem;
+  }
+  .gallery-modal__nav--left {
+    left: 6px;
+  }
+  .gallery-modal__nav--right {
+    right: 6px;
+  }
+
+  .gallery-modal__img {
+    max-height: calc(100vh - 160px);
+    border-radius: 6px;
+  }
+
+  .gallery-modal__caption {
+    font-size: 0.95rem;
+  }
+}
