@@ -235,7 +235,7 @@ export default function CelebrationModal() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6 }}
         >
-          <h2 className="celeb__section-title">✉️ A Letter for You</h2>
+          <h2 className="celeb__section-title">✉️ A Letter For Yu</h2>
           <div className="celeb__letter-card">
             <div className="celeb__letter-seal">💌</div>
             <pre className="celeb__letter-text">
